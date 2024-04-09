@@ -179,6 +179,7 @@ class RescuerAgent(AbstAgent):
      
         return a_star_search(start, end, unified_map)
 """
+
     def follow_path(self, path):
         """
         Método responsável por seguir o caminho planejado até a vítima.

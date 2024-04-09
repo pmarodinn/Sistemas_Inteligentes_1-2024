@@ -134,8 +134,8 @@ for c in centroids:
 plt.figure(figsize=(12,8))
 ax = plt.gca()
 
-ax.set_xlim([-100, 100])
-ax.set_ylim([-100, 100])
+ax.set_xlim((-100, 100))
+ax.set_ylim((-100, 100))
 
 plt.grid()
 plt.plot(ix, iy, 'o')
