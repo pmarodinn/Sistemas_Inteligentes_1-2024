@@ -65,38 +65,6 @@ def k_means(individuals, size ,clusters = 4, max_iter = 100):
 ix = []
 iy = []
 
-# #++
-# for _ in range(5):
-#     x = rd.randint(30, 50)
-#     y = rd.randint(30, 50)
-#     ix.append(x)
-#     iy.append(y)
-#
-#
-# #+-
-# for _ in range(5):
-#     x = rd.randint(30, 50)
-#     y = (-1)*rd.randint(30, 50)
-#     ix.append(x)
-#     iy.append(y)
-#
-#
-# #--
-# for _ in range(5):
-#     x = (-1)*rd.randint(30, 50)
-#     y = (-1)*rd.randint(30, 50)
-#     ix.append(x)
-#     iy.append(y)
-#
-#
-# #-+
-# for _ in range(5):
-#     x = (-1)*rd.randint(30, 50)
-#     y = rd.randint(30, 50)
-#     ix.append(x)
-#     iy.append(y)
-#
-
 for _ in range(30):
     ix.append(rd.randint(-90, 90))
     iy.append(rd.randint(-90, 90))
