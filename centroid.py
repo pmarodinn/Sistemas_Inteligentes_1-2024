@@ -59,64 +59,13 @@ def k_means(individuals, size ,clusters = 4, max_iter = 100):
 
     return centroids
 
-def make_matrix(values, clusters, size):
-    mat = []
-    for i in range(size):
-        mat.append([])
-        for j in range(size):
-            if j == size/2:
-                mat[i].append('|')
-            elif i == size/2:
-                mat[i].append('-')
-            else:
-                mat[i].append('.')
-
-
-    return mat
-
-def print_matrix(mat):
-    for line in mat:
-        print('\n', end = '')
-        for char in line:
-            print(char, end = '')
-
-
-
 
 ix = []
 iy = []
 
-#++
-for _ in range(5):
-    x = rd.randint(30, 50)
-    y = rd.randint(30, 50)
-    ix.append(x)
-    iy.append(y)
-
-
-#+-
-for _ in range(5):
-    x = rd.randint(30, 50)
-    y = (-1)*rd.randint(30, 50)
-    ix.append(x)
-    iy.append(y)
-
-
-#--
-for _ in range(5):
-    x = (-1)*rd.randint(30, 50)
-    y = (-1)*rd.randint(30, 50)
-    ix.append(x)
-    iy.append(y)
-
-
-#-+
-for _ in range(5):
-    x = (-1)*rd.randint(30, 50)
-    y = rd.randint(30, 50)
-    ix.append(x)
-    iy.append(y)
-
+for _ in range(30):
+    ix.append(rd.randint(-100, 100))
+    iy.append(rd.randint(-100, 100))
 
 individuals = []
 for i in range(len(ix)):
