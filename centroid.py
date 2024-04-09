@@ -107,12 +107,12 @@ for i in range(len(ix)):
 
 centroids = k_means(individuals, (100, 100))
 
-cx = np.zeros(len(centroids))
-cy = np.zeros(len(centroids))
+cx = []
+cy = []
 
-for i in range(len(centroids)):
-    cx[i] = centroids[i][0]
-    cy[i] = centroids[i][0]
+for c in centroids:
+    cx.append(c[0])
+    cy.append(c[1])
 
 plt.figure(figsize=(12,8))
 ax = plt.gca()
