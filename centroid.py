@@ -1,5 +1,6 @@
 import random as rd
 import matplotlib.pyplot as plt
+import numpy as np
 
 def k_means(individuals, size ,clusters = 4, max_iter = 100):
     
@@ -59,64 +60,46 @@ def k_means(individuals, size ,clusters = 4, max_iter = 100):
 
     return centroids
 
-def make_matrix(values, clusters, size):
-    mat = []
-    for i in range(size):
-        mat.append([])
-        for j in range(size):
-            if j == size/2:
-                mat[i].append('|')
-            elif i == size/2:
-                mat[i].append('-')
-            else:
-                mat[i].append('.')
-
-
-    return mat
-
-def print_matrix(mat):
-    for line in mat:
-        print('\n', end = '')
-        for char in line:
-            print(char, end = '')
-
-
-
+## Testing for the k_mean algorithm
 
 ix = []
 iy = []
 
-#++
-for _ in range(5):
-    x = rd.randint(30, 50)
-    y = rd.randint(30, 50)
-    ix.append(x)
-    iy.append(y)
+# #++
+# for _ in range(5):
+#     x = rd.randint(30, 50)
+#     y = rd.randint(30, 50)
+#     ix.append(x)
+#     iy.append(y)
+#
+#
+# #+-
+# for _ in range(5):
+#     x = rd.randint(30, 50)
+#     y = (-1)*rd.randint(30, 50)
+#     ix.append(x)
+#     iy.append(y)
+#
+#
+# #--
+# for _ in range(5):
+#     x = (-1)*rd.randint(30, 50)
+#     y = (-1)*rd.randint(30, 50)
+#     ix.append(x)
+#     iy.append(y)
+#
+#
+# #-+
+# for _ in range(5):
+#     x = (-1)*rd.randint(30, 50)
+#     y = rd.randint(30, 50)
+#     ix.append(x)
+#     iy.append(y)
+#
 
-
-#+-
-for _ in range(5):
-    x = rd.randint(30, 50)
-    y = (-1)*rd.randint(30, 50)
-    ix.append(x)
-    iy.append(y)
-
-
-#--
-for _ in range(5):
-    x = (-1)*rd.randint(30, 50)
-    y = (-1)*rd.randint(30, 50)
-    ix.append(x)
-    iy.append(y)
-
-
-#-+
-for _ in range(5):
-    x = (-1)*rd.randint(30, 50)
-    y = rd.randint(30, 50)
-    ix.append(x)
-    iy.append(y)
-
+for _ in range(30):
+    ix.append(rd.randint(-90, 90))
+    iy.append(rd.randint(-90, 90))
 
 individuals = []
 for i in range(len(ix)):
@@ -124,12 +107,12 @@ for i in range(len(ix)):
 
 centroids = k_means(individuals, (100, 100))
 
-cx = []
-cy = []
+cx = np.zeros(len(centroids))
+cy = np.zeros(len(centroids))
 
-for c in centroids:
-    cx.append(c[0])
-    cy.append(c[1])
+for i in range(len(centroids)):
+    cx[i] = centroids[i][0]
+    cy[i] = centroids[i][0]
 
 plt.figure(figsize=(12,8))
 ax = plt.gca()
