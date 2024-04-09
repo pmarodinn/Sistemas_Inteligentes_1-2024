@@ -54,6 +54,7 @@ def k_means(individuals, size ,clusters = 4, max_iter = 100):
             else:
                 c[0] = rd.randint((-1)*size[0]/2, size[0]/2)
                 c[1] = rd.randint((-1)*size[1]/2, size[1]/2)
+                changed = True
             
 
         it += 1
@@ -73,7 +74,7 @@ individuals = []
 for i in range(len(ix)):
     individuals.append((ix[i], iy[i]))
 
-centroids = k_means(individuals, (100, 100))
+centroids = k_means(individuals, (100, 100), 5)
 
 cx = []
 cy = []
