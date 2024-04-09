@@ -7,6 +7,8 @@ from vs.environment import Env
 from explorer import Explorer
 from rescuer import Rescuer
 
+from centroid import k_means
+
 def main(data_folder_name):
    
     # Set the path to config files and data files for the environment
