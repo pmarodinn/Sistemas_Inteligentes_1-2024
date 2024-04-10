@@ -39,8 +39,7 @@ def main(data_folder_name):
     exp3 = Explorer(env, explorer_file3, resc)
     
     #creates a new map by uniting all the agents maps
-    victims = union_victims([exp0.victims, exp1.victims, exp2.victims, exp3.victims])
-    
+    #victims = union_victims([exp0.victims, exp1.victims, exp2.victims, exp3.victims])
 
     # Run the environment simulator
     env.run()

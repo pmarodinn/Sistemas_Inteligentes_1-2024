@@ -2,12 +2,13 @@ import random as rd
 import matplotlib.pyplot as plt
 
 def k_means(victims, clusters = 4, max_iter = 100):
-    x_min, x_max, y_min, y_max = get_limits(victims) 
+    x_min, x_max, y_min, y_max = __get_limits(victims) 
     #initiate centroids
+    print(f"{x_min}, {x_max}, {y_min}, {y_max}")
     centroids = []
     for _ in range(clusters):
-        cx = rd.randint((-1)*x_min, x_max-1)
-        cy = rd.randint((-1)*y_min, y_max-1)
+        cx = rd.randint(x_min, x_max-1)
+        cy = rd.randint(y_min, y_max-1)
 
         centroids.append([cx, cy, []])
     
@@ -22,11 +23,11 @@ def k_means(victims, clusters = 4, max_iter = 100):
             c[2].clear()
 
         #Finds the closest centroid to each victim
-        for id, data in victims:
+        for id, data in victims.items():
             min_dist = -1
             closest = -1
-            coord = data[0]
-            
+            coord, _ = data
+
             # find the closest centroid to that victim
             for i, c in enumerate(centroids):
                 c_dist = (c[0] - coord[0])**2 +  (c[1] - coord[1])**2
@@ -60,12 +61,12 @@ def k_means(victims, clusters = 4, max_iter = 100):
 
     return centroids
 
-def get_limits(victims):
-    x_max, x_min, y_max, y_min = -1, -1, -1, -1 
-    for _, data in victims:
-        x = data[0][0]
-        y = data[0][1]
-
+def __get_limits(victims):
+    x_max, x_min, y_max, y_min = -1, -1, -1, -1
+    print(victims)
+    for _id , data in victims.items():
+        coord, _ = data
+        x, y = coord
         if x_max == -1 or x_min == -1:
             x_max = x;
             x_min = x;
@@ -84,34 +85,3 @@ def get_limits(victims):
             y_min = y
 
     return x_min, x_max, y_min, y_max
-
-ix = []
-iy = []
-
-for _ in range(30):
-    ix.append(rd.randint(-100, 100))
-    iy.append(rd.randint(-100, 100))
-
-victims = []
-for i in range(len(ix)):
-    victims.append((ix[i], iy[i]))
-
-centroids = k_means(victims, (100, 100))
-
-cx = []
-cy = []
-
-for c in centroids:
-    cx.append(c[0])
-    cy.append(c[1])
-
-plt.figure(figsize=(12,8))
-ax = plt.gca()
-
-ax.set_xlim((-100, 100))
-ax.set_ylim((-100, 100))
-
-plt.grid()
-plt.plot(ix, iy, 'o')
-plt.plot(cx, cy, 'x')
-plt.show()
