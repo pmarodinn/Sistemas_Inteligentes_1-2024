@@ -12,6 +12,7 @@ from vs.abstract_agent import AbstAgent
 from vs.physical_agent import PhysAgent
 from vs.constants import VS
 from abc import ABC, abstractmethod
+from cluster import k_means
 
 
 ## Classe que define o Agente Rescuer com um plano fixo
@@ -81,6 +82,8 @@ class Rescuer(AbstAgent):
             coord, vital_signals = data
             x, y = coord
             print(f"{self.NAME} Victim seq number: {seq} at ({x}, {y}) vs: {vital_signals}")
+
+        clusters = k_means(self.victims)
 
         #print(f"{self.NAME} time limit to rescue {self.plan_rtime}")
 

@@ -7,6 +7,7 @@ from vs.environment import Env
 from explorer import Explorer
 from rescuer import Rescuer
 from map import Map
+from map_functions import union_victims
 
 from cluster import k_means
 
@@ -38,12 +39,8 @@ def main(data_folder_name):
     exp3 = Explorer(env, explorer_file3, resc)
     
     #creates a new map by uniting all the agents maps
-    full_map = exp0.map
-    full_map.union(exp1.map)
-    full_map.union(exp2.map)
-    full_map.union(exp3.map)
-
-
+    victims = union_victims([exp0.victims, exp1.victims, exp2.victims, exp3.victims])
+    
 
     # Run the environment simulator
     env.run()
