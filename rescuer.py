@@ -24,8 +24,8 @@ class Rescuer(AbstAgent):
         super().__init__(env, config_file)
 
         # Specific initialization for the rescuer
-        self.map = None             # explorer will pass the map
-        self.victims = None         # list of found victims
+        self.map = Map()             # explorer will pass the map
+        self.victims = {}         # list of found victims
         self.plan = []              # a list of planned actions
         self.plan_x = 0             # the x position of the rescuer during the planning phase
         self.plan_y = 0             # the y position of the rescuer during the planning phase
@@ -34,13 +34,34 @@ class Rescuer(AbstAgent):
         self.plan_walk_time = 0.0   # previewed time to walk during rescue
         self.x = 0                  # the current x position of the rescuer when executing the plan
         self.y = 0                  # the current y position of the rescuer when executing the plan
+        self.map_qtd = 0            # the initial number of maps a rescuer has is 0
 
                 
         # Starts in IDLE state.
         # It changes to ACTIVE when the map arrives
         self.set_state(VS.IDLE)
 
-    
+    def add_victims(self, victims):
+        print(victims)
+        for seq, data in victims.items():
+            self.victims[seq] = data
+        
+    def add_map(self, map):
+        match self.map_qtd:
+            case 0:
+                self.map = map
+                self.map_qtd += 1
+                print("AGENT 1 SENT MAP")
+            case 1 | 2:
+                self.map.union(map)
+                self.map_qtd += 1
+                print("AGENT 2 or 3 SENT MAP")
+            case 3:
+                self.map.union(map)
+                self.map_qtd += 1
+                print("AGENT 4 SENT MAP")
+                self.go_save_victims(self.map, self.victims)
+
     def go_save_victims(self, map, victims):
         """ The explorer sends the map containing the walls and
         victims' location. The rescuer becomes ACTIVE. From now,
@@ -56,10 +77,10 @@ class Rescuer(AbstAgent):
         self.victims = victims
 
         # print the found victims - you may comment out
-        #for seq, data in self.victims.items():
-        #    coord, vital_signals = data
-        #    x, y = coord
-        #    print(f"{self.NAME} Victim seq number: {seq} at ({x}, {y}) vs: {vital_signals}")
+        for seq, data in self.victims.items():
+            coord, vital_signals = data
+            x, y = coord
+            print(f"{self.NAME} Victim seq number: {seq} at ({x}, {y}) vs: {vital_signals}")
 
         #print(f"{self.NAME} time limit to rescue {self.plan_rtime}")
 

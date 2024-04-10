@@ -23,8 +23,8 @@ class Stack:
 
     def pop(self):
         if not self.is_empty():
-            return self.items.pop()
-        exit()
+            return (False, self.items.pop())
+        return (True, (0, 0))
 
     def is_empty(self):
         return len(self.items) == 0
@@ -47,7 +47,7 @@ class Explorer(AbstAgent):
         self.victims = {}          # a dictionary of found victims: (seq): ((x,y), [<vs>])
         self.explored = []         # list of already explored tiles
                                    # the key is the seq number of the victim,(x,y) the position, <vs> the list of vital signals
-
+        self.finished = False
         # put the current position - the base - in the map
         self.map.add((self.x, self.y), 1, VS.NO_VICTIM, self.check_walls_and_lim())
 
@@ -66,18 +66,22 @@ class Explorer(AbstAgent):
             next_tile = (self.x + dx, self.y + dy)
             if obstacles[dir] == VS.CLEAR and next_tile not in self.explored:
                 self.explored.append(next_tile)
-                return (dx, dy, True)
+                return (dx, dy, False, False)
 
-        next_x, next_y = self.walk_stack.pop()
+        stack_empty, (next_x, next_y) = self.walk_stack.pop()
         next_x *= -1
         next_y *= -1
-        return (next_x, next_y, False)
+        return (next_x, next_y, True, stack_empty)
+    
     def explore(self):
-        # success indica se a proxima posicao é uma coordenada nova ou se o explorador desempilhou da walk_stack
+        # popped_stack indica se a proxima posicao é uma coordenada nova ou se o explorador desempilhou da walk_stack
         # get an random increment for x and y       
-        dx, dy, success = self.get_next_position()
+        dx, dy, popped_stack, stack_empty = self.get_next_position()
 
-        time.sleep(0.01)
+        if stack_empty:
+            self.finished = True
+            return
+        
         # Moves the body to another position
         rtime_bef = self.get_rtime()
         result = self.walk(dx, dy)
@@ -93,7 +97,7 @@ class Explorer(AbstAgent):
         if result == VS.EXECUTED:
             # check for victim returns -1 if there is no victim or the sequential
             # the sequential number of a found victim
-            if success:
+            if not popped_stack:
                 self.walk_stack.push((dx, dy))
 
             # update the agent's position relative to the origin
@@ -122,7 +126,7 @@ class Explorer(AbstAgent):
         return
 
     def come_back(self):
-        dx, dy = self.walk_stack.pop()
+        stack_empty, (dx, dy) = self.walk_stack.pop()
         dx = dx * -1
         dy = dy * -1
 
@@ -142,7 +146,7 @@ class Explorer(AbstAgent):
         method at each cycle. Must be implemented in every agent"""
 
         consumed_time = self.TLIM - self.get_rtime()
-        if consumed_time < self.get_rtime():
+        if consumed_time < self.get_rtime() and not self.finished:
             self.explore()
             return True
 
@@ -152,7 +156,9 @@ class Explorer(AbstAgent):
             # pass the walls and the victims (here, they're empty)
             print(f"{self.NAME}: rtime {self.get_rtime()}, invoking the rescuer")
             #input(f"{self.NAME}: type [ENTER] to proceed")
-            self.resc.go_save_victims(self.map, self.victims)
+            print(f"VICTIMS: {self.victims}")
+            self.resc.add_victims(self.victims)
+            self.resc.add_map(self.map)
             return False
 
         self.come_back()

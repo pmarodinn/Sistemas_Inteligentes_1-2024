@@ -23,6 +23,12 @@ class Map:
     def __init__(self):
         self.map_data = {}
 
+    def union(self, map):
+        for coord, (difficulty, victim_seq, actions_res) in map.map_data.items():
+            if coord in self.map_data:
+                continue
+            self.add(coord, difficulty, victim_seq, actions_res)
+
     def in_map(self, coord):
         if coord in self.map_data:
             return True
