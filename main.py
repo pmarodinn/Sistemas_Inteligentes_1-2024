@@ -7,7 +7,7 @@ from vs.environment import Env
 from explorer import Explorer
 from rescuer import Rescuer
 
-from centroid import k_means
+from cluster import k_means
 
 def main(data_folder_name):
    
