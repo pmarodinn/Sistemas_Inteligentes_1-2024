@@ -6,6 +6,7 @@ import time
 from vs.environment import Env
 from explorer import Explorer
 from rescuer import Rescuer
+from map import Map
 
 from cluster import k_means
 
@@ -35,6 +36,14 @@ def main(data_folder_name):
     exp1 = Explorer(env, explorer_file1, resc)
     exp2 = Explorer(env, explorer_file2, resc)
     exp3 = Explorer(env, explorer_file3, resc)
+    
+    #creates a new map by uniting all the agents maps
+    full_map = exp0.map
+    full_map.union(exp1.map)
+    full_map.union(exp2.map)
+    full_map.union(exp3.map)
+
+
 
     # Run the environment simulator
     env.run()
