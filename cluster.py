@@ -85,3 +85,19 @@ def __get_limits(victims):
             y_min = y
 
     return x_min, x_max, y_min, y_max
+
+
+def save_clusters(clusters):
+    for i, cluster in enumerate(clusters):
+        file_name = "data/cluster" + str(i) + ".txt"
+        
+        contents ="" 
+
+        for victim in cluster[2]:
+            id = victim[0]
+            x = victim[1][0]
+            y = victim[1][1]
+            contents += f"{id},{x},{y},0.0,1\n"
+
+        with open(file_name, 'w') as file:
+            file.write(contents)
