@@ -82,7 +82,7 @@ class Rescuer(AbstAgent):
             coord, vital_signals = data
             x, y = coord
             print(f"{self.NAME} Victim seq number: {seq} at ({x}, {y}) vs: {vital_signals}")
-        clusters = k_means(self.victims)
+        clusters = k_means(self.victims, max_iter = 300)
         save_clusters(clusters)
 
         #print(f"{self.NAME} time limit to rescue {self.plan_rtime}")

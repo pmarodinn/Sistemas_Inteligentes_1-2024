@@ -91,7 +91,7 @@ def save_clusters(clusters):
     for i, cluster in enumerate(clusters):
         file_name = "data/cluster" + str(i) + ".txt"
         
-        contents ="" 
+        contents =f"{cluster[0]},{cluster[1]}\n" 
 
         for victim in cluster[2]:
             id = victim[0]
