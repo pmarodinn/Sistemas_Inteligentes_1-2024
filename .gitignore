@@ -1,3 +1,4 @@
-cluster*
+cluster*.txt
 venv/
 __pycache__/
+envios/

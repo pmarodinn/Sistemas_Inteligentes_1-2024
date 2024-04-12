@@ -53,8 +53,8 @@ def k_means(victims, clusters = 4, max_iter = 100):
                 if c[0] != old_x or c[1] != old_y:
                     changed = True
             else:
-                c[0] = rd.randint((-1)*int(x_min/2), int(x_max/2))
-                c[1] = rd.randint((-1)*int(y_min/2), int(y_max/2))
+                c[0] = rd.randint(int(x_min/2), int(x_max/2))
+                c[1] = rd.randint(int(y_min/2), int(y_max/2))
             
 
         it += 1
@@ -89,7 +89,7 @@ def __get_limits(victims):
 
 def save_clusters(clusters):
     for i, cluster in enumerate(clusters):
-        file_name = "data/cluster" + str(i) + ".txt"
+        file_name = f"data/cluster{i}_300v_90x90.txt"
         
         contents =f"{cluster[0]},{cluster[1]}\n" 
 
