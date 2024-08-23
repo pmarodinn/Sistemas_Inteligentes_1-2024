@@ -42,27 +42,6 @@ class Rescuer(AbstAgent):
         # It changes to ACTIVE when the map arrives
         self.set_state(VS.IDLE)
 
-    def add_victims(self, victims):
-        print(victims)
-        for seq, data in victims.items():
-            self.victims[seq] = data
-        
-    def add_map(self, map):
-        match self.map_qtd:
-            case 0:
-                self.map = map
-                self.map_qtd += 1
-                print("AGENT 1 SENT MAP")
-            case 1 | 2:
-                self.map.union(map)
-                self.map_qtd += 1
-                print("AGENT 2 or 3 SENT MAP")
-            case 3:
-                self.map.union(map)
-                self.map_qtd += 1
-                print("AGENT 4 SENT MAP")
-                self.go_save_victims(self.map, self.victims)
-
     def go_save_victims(self, map, victims):
         """ The explorer sends the map containing the walls and
         victims' location. The rescuer becomes ACTIVE. From now,
@@ -82,8 +61,6 @@ class Rescuer(AbstAgent):
             coord, vital_signals = data
             x, y = coord
             print(f"{self.NAME} Victim seq number: {seq} at ({x}, {y}) vs: {vital_signals}")
-        clusters = k_means(self.victims, max_iter = 300)
-        save_clusters(clusters)
 
         #print(f"{self.NAME} time limit to rescue {self.plan_rtime}")
 

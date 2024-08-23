@@ -3,6 +3,7 @@ import os
 import time
 
 ## importa classes
+from manager import Manager
 from vs.environment import Env
 from explorer import Explorer
 from rescuer import Rescuer
@@ -29,14 +30,19 @@ def main(data_folder_name):
     explorer_file3 = os.path.join(data_folder, "explorer_config3.txt")
     
     # Instantiate agents rescuer and explorer
-    resc = Rescuer(env, rescuer_file)
+    resc0 = Rescuer(env, rescuer_file)
+    resc1 = Rescuer(env, rescuer_file)
+    resc2 = Rescuer(env, rescuer_file)
+    resc3 = Rescuer(env, rescuer_file)
+
+    manager = Manager([resc0, resc1, resc2, resc3])
 
     # Explorer needs to know rescuer to send the map
     # that's why rescuer is instatiated before
-    exp0 = Explorer(env, explorer_file0, resc)
-    exp1 = Explorer(env, explorer_file1, resc)
-    exp2 = Explorer(env, explorer_file2, resc)
-    exp3 = Explorer(env, explorer_file3, resc)
+    exp0 = Explorer(env, explorer_file0, manager)
+    exp1 = Explorer(env, explorer_file1, manager)
+    exp2 = Explorer(env, explorer_file2, manager)
+    exp3 = Explorer(env, explorer_file3, manager)
     
     #creates a new map by uniting all the agents maps
     #victims = union_victims([exp0.victims, exp1.victims, exp2.victims, exp3.victims])
