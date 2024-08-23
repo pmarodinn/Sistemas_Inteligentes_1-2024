@@ -10,7 +10,7 @@ def k_means(victims, clusters = 4, max_iter = 100):
         cx = rd.randint(x_min, x_max-1)
         cy = rd.randint(y_min, y_max-1)
 
-        centroids.append([cx, cy, []])
+        centroids.append([cx, cy, {}])
     
     changed = True
     it = 0
@@ -35,7 +35,7 @@ def k_means(victims, clusters = 4, max_iter = 100):
                     min_dist = c_dist
                     closest = i
 
-            centroids[closest][2].append((id, coord))
+            centroids[closest][2][id] = data
 
         
         #Calculates the new position for each centroid
@@ -43,9 +43,9 @@ def k_means(victims, clusters = 4, max_iter = 100):
             n = len(c[2])
             x, y = 0, 0
             old_x, old_y = c[0], c[1]
-            for v in c[2]:
-                x += v[1][0]
-                y += v[1][1]
+            for coord, _ in c[2].values():
+                x += coord[0]
+                y += coord[1]
             
             if n != 0:
                 c[0] = x/n
@@ -93,11 +93,8 @@ def save_clusters(clusters):
         
         contents =f"{cluster[0]},{cluster[1]}\n" 
 
-        for victim in cluster[2]:
-            id = victim[0]
-            x = victim[1][0]
-            y = victim[1][1]
-            contents += f"{id},{x},{y},0.0,1\n"
+        for seq, data in cluster[2].items():
+            contents += f"{seq}: {data}\n"
 
         with open(file_name, 'w') as file:
             file.write(contents)
