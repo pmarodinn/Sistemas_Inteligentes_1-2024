@@ -49,20 +49,15 @@ class Rescuer(AbstAgent):
 
         print(f"\n\n*** R E S C U E R ***")
         self.map = map
-        print(f"{self.NAME} Map received from the explorer")
-        self.map.draw()
+        #self.map.draw()
 
-        print()
-        #print(f"{self.NAME} List of found victims received from the explorer")
         self.victims = victims
 
         # print the found victims - you may comment out
-        for seq, data in self.victims.items():
-            coord, vital_signals = data
-            x, y = coord
-            print(f"{self.NAME} Victim seq number: {seq} at ({x}, {y}) vs: {vital_signals}")
-
-        #print(f"{self.NAME} time limit to rescue {self.plan_rtime}")
+        """ for seq, data in self.victims.items(): """
+        """     coord, vital_signals = data """
+        """     x, y = coord """
+        """     print(f"{self.NAME} Victim seq number: {seq} at ({x}, {y}) vs: {vital_signals}") """
 
         self.__planner()
         print(f"{self.NAME} PLAN")
@@ -72,7 +67,7 @@ class Rescuer(AbstAgent):
         for a in self.plan:
             self.plan_x += a[0]
             self.plan_y += a[1]
-            print(f"{self.NAME} {i}) dxy=({a[0]}, {a[1]}) vic: a[2] => at({self.plan_x}, {self.plan_y})")
+            #print(f"{self.NAME} {i}) dxy=({a[0]}, {a[1]}) vic: a[2] => at({self.plan_x}, {self.plan_y})")
             i += 1
 
         print(f"{self.NAME} END OF PLAN")

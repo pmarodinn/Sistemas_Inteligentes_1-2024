@@ -51,17 +51,12 @@ class Explorer(AbstAgent):
         # put the current position - the base - in the map
         self.map.add((self.x, self.y), 1, VS.NO_VICTIM, self.check_walls_and_lim())
 
-    def get_next_position(self) -> tuple[int, int, bool]:
-        """ Randomically, gets the next position that can be explored (no wall and inside the grid)
-            There must be at least one CLEAR position in the neighborhood, otherwise it loops forever.
-        """
-        # Check the neighborhood walls and grid limits
+    # returns the next directions, whether it returned to the previous position, and whether the base was reached
+    def get_next_position(self) -> tuple[int, int, bool, bool]:
+
         obstacles = self.check_walls_and_lim()
     
-        # Loop until a CLEAR position is found
         for dir in self.directions:
-            # Get a random direction
-            # Check if the corresponding position in walls_and_lim is CLEAR
             dx, dy = Explorer.AC_INCR[dir]
             next_tile = (self.x + dx, self.y + dy)
             if obstacles[dir] == VS.CLEAR and next_tile not in self.explored:
@@ -75,7 +70,6 @@ class Explorer(AbstAgent):
     
     def explore(self):
         # popped_stack indica se a proxima posicao é uma coordenada nova ou se o explorador desempilhou da walk_stack
-        # get an random increment for x and y       
         dx, dy, popped_stack, stack_empty = self.get_next_position()
 
         if stack_empty:
@@ -95,8 +89,6 @@ class Explorer(AbstAgent):
             #print(f"{self.NAME}: Wall or grid limit reached at ({self.x + dx}, {self.y + dy})")
 
         if result == VS.EXECUTED:
-            # check for victim returns -1 if there is no victim or the sequential
-            # the sequential number of a found victim
             if not popped_stack:
                 self.walk_stack.push((dx, dy))
 
@@ -109,7 +101,7 @@ class Explorer(AbstAgent):
             if seq != VS.NO_VICTIM:
                 vs = self.read_vital_signals()
                 self.victims[vs[0]] = ((self.x, self.y), vs)
-                print(f"{self.NAME} Victim found at ({self.x}, {self.y}), rtime: {self.get_rtime()}")
+                #print(f"{self.NAME} Victim found at ({self.x}, {self.y}), rtime: {self.get_rtime()}")
                 #print(f"{self.NAME} Seq: {seq} Vital signals: {vs}")
             
             # Calculates the difficulty of the visited cell
@@ -121,7 +113,6 @@ class Explorer(AbstAgent):
 
             # Update the map with the new cell
             self.map.add((self.x, self.y), difficulty, seq, self.check_walls_and_lim())
-            #print(f"{self.NAME}:at ({self.x}, {self.y}), diffic: {difficulty:.2f} vict: {seq} rtime: {self.get_rtime()}")
 
         return
 
@@ -154,9 +145,9 @@ class Explorer(AbstAgent):
         if self.walk_stack.is_empty() or (self.x == 0 and self.y == 0):
             # time to wake up the rescuer
             # pass the walls and the victims (here, they're empty)
-            print(f"{self.NAME}: rtime {self.get_rtime()}, invoking the rescuer")
+            #print(f"{self.NAME}: rtime {self.get_rtime()}, invoking the rescuer")
             #input(f"{self.NAME}: type [ENTER] to proceed")
-            print(f"VICTIMS: {self.victims}")
+            #print(f"VICTIMS: {self.victims}")
             self.manager.add_victims(self.victims)
             self.manager.add_map(self.map)
             return False
