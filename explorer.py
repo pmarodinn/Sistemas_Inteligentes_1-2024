@@ -44,9 +44,9 @@ class Explorer(AbstAgent):
         self.x = 0                 # current x position relative to the origin 0
         self.y = 0                 # current y position relative to the origin 0
         self.map = Map()           # create a map for representing the environment
-        self.victims = {}          # a dictionary of found victims: (seq): ((x,y), [<vs>])
         self.explored = []         # list of already explored tiles
                                    # the key is the seq number of the victim,(x,y) the position, <vs> the list of vital signals
+        self.victims = []
         self.finished = False
         # put the current position - the base - in the map
         self.map.add((self.x, self.y), 1, VS.NO_VICTIM, self.check_walls_and_lim())
@@ -100,11 +100,20 @@ class Explorer(AbstAgent):
             seq = self.check_for_victim()
             if seq != VS.NO_VICTIM:
                 vs = self.read_vital_signals()
-                self.victims[vs[0]] = ((self.x, self.y), vs)
                 #print(f"{self.NAME} Victim found at ({self.x}, {self.y}), rtime: {self.get_rtime()}")
                 #print(f"{self.NAME} Seq: {seq} Vital signals: {vs}")
             
             # Calculates the difficulty of the visited cell
+                victim = {
+                    "seq": vs[0],
+                    "position": (self.x, self.y),
+                    "data": {
+                        "qPA": vs[3],
+                        "pulse": vs[4],
+                        "respiratory_freq": vs[5],
+                    },
+                }
+                self.victims.append(victim)
             difficulty = (rtime_bef - rtime_aft)
             if dx == 0 or dy == 0:
                 difficulty = difficulty / self.COST_LINE

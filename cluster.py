@@ -10,7 +10,7 @@ def k_means(victims, clusters = 4, max_iter = 100):
         cx = rd.randint(x_min, x_max-1)
         cy = rd.randint(y_min, y_max-1)
 
-        centroids.append([cx, cy, {}])
+        centroids.append([cx, cy, []])
     
     changed = True
     it = 0
@@ -23,10 +23,10 @@ def k_means(victims, clusters = 4, max_iter = 100):
             c[2].clear()
 
         #Finds the closest centroid to each victim
-        for id, data in victims.items():
+        for victim in victims:
             min_dist = -1
             closest = -1
-            coord, _ = data
+            coord = victim["position"]
 
             # find the closest centroid to that victim
             for i, c in enumerate(centroids):
@@ -35,15 +35,15 @@ def k_means(victims, clusters = 4, max_iter = 100):
                     min_dist = c_dist
                     closest = i
 
-            centroids[closest][2][id] = data
-
+            centroids[closest][2].append(victim)
         
         #Calculates the new position for each centroid
         for c in centroids:
             n = len(c[2])
             x, y = 0, 0
             old_x, old_y = c[0], c[1]
-            for coord, _ in c[2].values():
+            for victim in c[2]:
+                coord = victim["position"]
                 x += coord[0]
                 y += coord[1]
             
@@ -63,9 +63,8 @@ def k_means(victims, clusters = 4, max_iter = 100):
 
 def __get_limits(victims):
     x_max, x_min, y_max, y_min = -1, -1, -1, -1
-    print(victims)
-    for _id , data in victims.items():
-        coord, _ = data
+    for victim in victims:
+        coord = victim["position"]
         x, y = coord
         if x_max == -1 or x_min == -1:
             x_max = x;
@@ -89,12 +88,7 @@ def __get_limits(victims):
 
 def save_clusters(clusters):
     for i, cluster in enumerate(clusters):
-        file_name = f"data/cluster{i}_300v_90x90.txt"
-        
-        contents =f"{cluster[0]},{cluster[1]}\n" 
-
-        for seq, data in cluster[2].items():
-            contents += f"{seq}: {data}\n"
-
-        with open(file_name, 'w') as file:
-            file.write(contents)
+        file_name = f"data/cluster{i}_300v_90x90.json"
+        import json
+        with open(file_name, 'w', encoding='utf-8') as f:
+            json.dump(cluster[2], f, ensure_ascii=False, indent=4)
