@@ -1,5 +1,6 @@
 from cluster import k_means, save_clusters
 from map import Map
+import neural_network
 
 
 class Manager:
@@ -30,7 +31,12 @@ class Manager:
 
     def dispatch_rescuers(self):
         self.victims = [i for n, i in enumerate(self.victims) if i not in self.victims[n + 1:]]
+        self.predict_victims_severity()
+        print(self.victims)
         clusters = k_means(self.victims, max_iter = 300)
         for cluster, rescuer in zip(clusters, self.rescuers):
             rescuer.go_save_victims(self.map, cluster[2])
         save_clusters(clusters)
+
+    def predict_victims_severity(self):
+        neural_network.predict(self.victims)
