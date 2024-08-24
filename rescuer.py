@@ -49,18 +49,8 @@ class Rescuer(AbstAgent):
 
         print(f"\n\n*** R E S C U E R ***")
         self.map = map
-        #self.map.draw()
-
         self.victims = victims
-
-        # print the found victims - you may comment out
-        """ for seq, data in self.victims.items(): """
-        """     coord, vital_signals = data """
-        """     x, y = coord """
-        """     print(f"{self.NAME} Victim seq number: {seq} at ({x}, {y}) vs: {vital_signals}") """
-
         self.__planner()
-        print(f"{self.NAME} PLAN")
         i = 1
         self.plan_x = 0
         self.plan_y = 0

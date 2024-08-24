@@ -38,24 +38,20 @@ class Explorer(AbstAgent):
         """
 
         super().__init__(env, config_file)
-        self.walk_stack = Stack()  # a stack to store the movements
-        self.set_state(VS.ACTIVE)  # explorer is active since the begin
+        self.walk_stack = Stack()
+        self.set_state(VS.ACTIVE)  
         self.manager = manager
-        self.x = 0                 # current x position relative to the origin 0
-        self.y = 0                 # current y position relative to the origin 0
-        self.map = Map()           # create a map for representing the environment
-        self.explored = []         # list of already explored tiles
-                                   # the key is the seq number of the victim,(x,y) the position, <vs> the list of vital signals
+        self.x = 0
+        self.y = 0
+        self.map = Map()
         self.victims = []
+        self.explored = []
         self.finished = False
-        # put the current position - the base - in the map
         self.map.add((self.x, self.y), 1, VS.NO_VICTIM, self.check_walls_and_lim())
 
     # returns the next directions, whether it returned to the previous position, and whether the base was reached
     def get_next_position(self) -> tuple[int, int, bool, bool]:
-
         obstacles = self.check_walls_and_lim()
-    
         for dir in self.directions:
             dx, dy = Explorer.AC_INCR[dir]
             next_tile = (self.x + dx, self.y + dy)
@@ -81,29 +77,19 @@ class Explorer(AbstAgent):
         result = self.walk(dx, dy)
         rtime_aft = self.get_rtime()
 
-        # Test the result of the walk action
-        # Should never bump, but for safe functionning let's test
         if result == VS.BUMPED:
-            # update the map with the wall
             self.map.add((self.x + dx, self.y + dy), VS.OBST_WALL, VS.NO_VICTIM, self.check_walls_and_lim())
-            #print(f"{self.NAME}: Wall or grid limit reached at ({self.x + dx}, {self.y + dy})")
 
         if result == VS.EXECUTED:
             if not popped_stack:
                 self.walk_stack.push((dx, dy))
 
-            # update the agent's position relative to the origin
             self.x += dx
             self.y += dy          
 
-            # Check for victims
             seq = self.check_for_victim()
             if seq != VS.NO_VICTIM:
                 vs = self.read_vital_signals()
-                #print(f"{self.NAME} Victim found at ({self.x}, {self.y}), rtime: {self.get_rtime()}")
-                #print(f"{self.NAME} Seq: {seq} Vital signals: {vs}")
-            
-            # Calculates the difficulty of the visited cell
                 victim = {
                     "seq": vs[0],
                     "position": (self.x, self.y),
@@ -120,7 +106,6 @@ class Explorer(AbstAgent):
             else:
                 difficulty = difficulty / self.COST_DIAG
 
-            # Update the map with the new cell
             self.map.add((self.x, self.y), difficulty, seq, self.check_walls_and_lim())
 
         return
@@ -136,10 +121,8 @@ class Explorer(AbstAgent):
             return
         
         if result == VS.EXECUTED:
-            # update the agent's position relative to the origin
             self.x += dx
             self.y += dy
-            #print(f"{self.NAME}: coming back at ({self.x}, {self.y}), rtime: {self.get_rtime()}")
         
     def deliberate(self) -> bool:
         """ The agent chooses the next action. The simulator calls this
@@ -150,13 +133,7 @@ class Explorer(AbstAgent):
             self.explore()
             return True
 
-        # time to come back to the base
         if self.walk_stack.is_empty() or (self.x == 0 and self.y == 0):
-            # time to wake up the rescuer
-            # pass the walls and the victims (here, they're empty)
-            #print(f"{self.NAME}: rtime {self.get_rtime()}, invoking the rescuer")
-            #input(f"{self.NAME}: type [ENTER] to proceed")
-            #print(f"VICTIMS: {self.victims}")
             self.manager.add_victims(self.victims)
             self.manager.add_map(self.map)
             return False
