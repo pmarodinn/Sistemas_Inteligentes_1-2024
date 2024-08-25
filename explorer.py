@@ -49,6 +49,8 @@ class Explorer(AbstAgent):
         self.explored = []
         self.finished = False
         self.map.add((self.x, self.y), 1, VS.NO_VICTIM, [])
+        self.comeback_plan = []
+        self.coming_back = False
 
     # returns the next directions, whether it returned to the previous position, and whether the base was reached
     def get_next_position(self) -> tuple[int, int, bool, bool]:
@@ -114,13 +116,13 @@ class Explorer(AbstAgent):
 
         return
 
-    def come_back(self, comeback_plan):
+    def come_back(self):
         print("COMING BACK")
-        print(comeback_plan)
-        if len(comeback_plan) == 0:
+        print(self.comeback_plan)
+        if len(self.comeback_plan) == 0:
             return
 
-        (dx, dy, f) = comeback_plan[0]
+        (dx, dy, f) = self.comeback_plan.pop(0)
 
         result = self.walk(dx, dy)
         if result == VS.BUMPED:
@@ -134,17 +136,23 @@ class Explorer(AbstAgent):
     def deliberate(self) -> bool:
         """ The agent chooses the next action. The simulator calls this
         method at each cycle. Must be implemented in every agent"""
+
         comeback_plan, required_time = search(self, self.map, (self.x, self.y), (0, 0))
         if required_time < self.get_rtime() - 40 and not self.finished:
             self.explore()
             return True
 
-        self.come_back(comeback_plan)
+        self.coming_back = True
+        self.comeback_plan = comeback_plan
 
-        if self.x == 0 and self.y == 0:
-            self.manager.add_victims(self.victims)
-            self.manager.add_map(self.map)
-            return False
+        if self.coming_back:
+            self.come_back()
+
+            if self.x == 0 and self.y == 0:
+                self.manager.add_victims(self.victims)
+                self.manager.add_map(self.map)
+                return False
+            return True
 
         return True
 
