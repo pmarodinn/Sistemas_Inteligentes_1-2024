@@ -8,6 +8,7 @@
 import os
 import random
 from map import Map
+from search import search
 from vs.abstract_agent import AbstAgent
 from vs.physical_agent import PhysAgent
 from vs.constants import VS
@@ -132,6 +133,17 @@ class Rescuer(AbstAgent):
             else:
                 return
 
+    def __a_star(self):
+        sorted_victims = sorted(self.victims, key=lambda x: x["severity"])
+        if len(sorted_victims) == 0:
+            return
+        current_pos = (0, 0)
+        for victim in sorted_victims:
+            next_plan, time_required = search(self, self.map, current_pos, victim["position"])
+            if self.plan_walk_time + time_required > self.plan_rtime:
+                continue
+            self.plan = self.plan + next_plan
+            current_pos = victim["position"]
         return
     
     def __planner(self):

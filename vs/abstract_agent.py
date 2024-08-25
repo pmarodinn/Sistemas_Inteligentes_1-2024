@@ -92,6 +92,9 @@ class AbstAgent:
 
         pass
 
+    def get_costs(self):
+        return (self.COST_LINE, self.COST_DIAG)
+
     ## The public methods below, you may use when programming your agent
     def get_rtime(self):
         """ Public method for getting the agent remaining battery time (it's like a gauge)

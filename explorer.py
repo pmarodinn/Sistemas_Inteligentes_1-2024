@@ -10,6 +10,7 @@ import random
 import math
 from abc import ABC, abstractmethod
 import time
+from search import search
 from vs.abstract_agent import AbstAgent
 from vs.constants import VS
 from map import Map
@@ -47,7 +48,7 @@ class Explorer(AbstAgent):
         self.victims = []
         self.explored = []
         self.finished = False
-        self.map.add((self.x, self.y), 1, VS.NO_VICTIM, self.check_walls_and_lim())
+        self.map.add((self.x, self.y), 1, VS.NO_VICTIM, [])
 
     # returns the next directions, whether it returned to the previous position, and whether the base was reached
     def get_next_position(self) -> tuple[int, int, bool, bool]:
@@ -55,7 +56,10 @@ class Explorer(AbstAgent):
         for dir in self.directions:
             dx, dy = Explorer.AC_INCR[dir]
             next_tile = (self.x + dx, self.y + dy)
-            if obstacles[dir] == VS.CLEAR and next_tile not in self.explored:
+            if obstacles[dir] != VS.CLEAR:
+                self.map.add(next_tile, VS.OBST_WALL, VS.NO_VICTIM, []) 
+                continue
+            if next_tile not in self.explored:
                 self.explored.append(next_tile)
                 return (dx, dy, False, False)
 
@@ -78,7 +82,7 @@ class Explorer(AbstAgent):
         rtime_aft = self.get_rtime()
 
         if result == VS.BUMPED:
-            self.map.add((self.x + dx, self.y + dy), VS.OBST_WALL, VS.NO_VICTIM, self.check_walls_and_lim())
+            self.map.add((self.x + dx, self.y + dy), VS.OBST_WALL, VS.NO_VICTIM, [])
 
         if result == VS.EXECUTED:
             if not popped_stack:
@@ -106,14 +110,17 @@ class Explorer(AbstAgent):
             else:
                 difficulty = difficulty / self.COST_DIAG
 
-            self.map.add((self.x, self.y), difficulty, seq, self.check_walls_and_lim())
+            self.map.add((self.x, self.y), difficulty, seq, [])
 
         return
 
-    def come_back(self):
-        stack_empty, (dx, dy) = self.walk_stack.pop()
-        dx = dx * -1
-        dy = dy * -1
+    def come_back(self, comeback_plan):
+        print("COMING BACK")
+        print(comeback_plan)
+        if len(comeback_plan) == 0:
+            return
+
+        (dx, dy, f) = comeback_plan[0]
 
         result = self.walk(dx, dy)
         if result == VS.BUMPED:
@@ -127,17 +134,17 @@ class Explorer(AbstAgent):
     def deliberate(self) -> bool:
         """ The agent chooses the next action. The simulator calls this
         method at each cycle. Must be implemented in every agent"""
-
-        consumed_time = self.TLIM - self.get_rtime()
-        if consumed_time < self.get_rtime() and not self.finished:
+        comeback_plan, required_time = search(self, self.map, (self.x, self.y), (0, 0))
+        if required_time < self.get_rtime() - 40 and not self.finished:
             self.explore()
             return True
 
-        if self.walk_stack.is_empty() or (self.x == 0 and self.y == 0):
+        self.come_back(comeback_plan)
+
+        if self.x == 0 and self.y == 0:
             self.manager.add_victims(self.victims)
             self.manager.add_map(self.map)
             return False
 
-        self.come_back()
         return True
 
