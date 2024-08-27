@@ -137,13 +137,39 @@ class Rescuer(AbstAgent):
         sorted_victims = sorted(self.victims, key=lambda x: x["severity"])
         if len(sorted_victims) == 0:
             return
+
+        population = initialize_random(self.victims)
+        n_generations = 1000
+        for i in range(n_generations):
+            for sequence in population:
+                score = evaluate_sequence(sequence)
+                scores[sequence] = score
+            selected = select_best(scores)
+            children = reproduce(selected)
+            population = selected + children
+        best = select_the_best(population)
         current_pos = (0, 0)
-        for victim in sorted_victims:
-            next_plan, time_required = search(self, self.map, current_pos, victim["position"])
-            if self.plan_walk_time + time_required > self.plan_rtime:
+        for victim in best:
+            next_plan, time_required = search(
+                self, self.map, current_pos, victim["position"]
+            )
+            comeback_plan, time_to_go_back = search(
+                self, self.map, victim["position"], (0, 0)
+            )
+            time_required += self.COST_FIRST_AID
+            if (
+                self.plan_walk_time + time_required + time_to_go_back
+                > self.plan_rtime - 40
+            ):
                 continue
+            self.plan_walk_time += time_required
             self.plan = self.plan + next_plan
             current_pos = victim["position"]
+
+        comeback_plan, time_to_go_back = search(self, self.map, current_pos, (0, 0))
+        self.plan = self.plan + comeback_plan
+
+        print(self.plan)
         return
     
     def __planner(self):
@@ -160,23 +186,8 @@ class Rescuer(AbstAgent):
         # Besides, it has a flag indicating that a first-aid kit must be delivered when the move is completed.
         # For instance (0,1,True) means the agent walk to (x+0,y+1) and after walking, it leaves the kit.
 
-        self.plan_visited.add((0,0)) # always start from the base, so it is already visited
-        difficulty, vic_seq, actions_res = self.map.get((0,0))
-        self.__depth_search(actions_res)
+        self.__a_star()
 
-        # push actions into the plan to come back to the base
-        if self.plan == []:
-            return
-
-        come_back_plan = []
-
-        for a in reversed(self.plan):
-            # triple: dx, dy, no victim - when coming back do not rescue any victim
-            come_back_plan.append((a[0]*-1, a[1]*-1, False))
-
-        self.plan = self.plan + come_back_plan
-        
-        
     def deliberate(self) -> bool:
         """ This is the choice of the next action. The simulator calls this
         method at each reasonning cycle if the agent is ACTIVE.
