@@ -19,6 +19,7 @@ from vs.physical_agent import PhysAgent
 from vs.constants import VS
 from genetic import (
     evaluate_sequence,
+    eval_seq_light,
     initialize_random,
     reproduce_pop,
     select_best,
@@ -141,28 +142,30 @@ class Rescuer(AbstAgent):
                 return
 
     def __a_star(self):
+        print(self.victims)
         sorted_victims = sorted(self.victims, key=lambda x: x["severity"])
         if len(sorted_victims) == 0:
             return
 
-        population_size = 5
+        population_size = 20
         population = initialize_random(self.victims, population_size)
         print("population_size: ", len(population))
-        n_generations = 10
+        n_generations = 400
         scores = []
         for i in range(n_generations):
             scores.clear()
             print("generation ", i)
             for sequence in population:
-                score = evaluate_sequence(
-                    sequence,
-                    self.victims,
-                    self.map,
-                    self.COST_LINE,
-                    self.COST_DIAG,
-                    self.TLIM,
-                    self.COST_FIRST_AID,
-                )
+                # score = evaluate_sequence(
+                #     sequence,
+                #     self.victims,
+                #     self.map,
+                #     self.COST_LINE,
+                #     self.COST_DIAG,
+                #     self.TLIM,
+                #     self.COST_FIRST_AID,
+                # )
+                score = eval_seq_light(sequence, self.victims)
                 scores.append((score, sequence))
             selected = select_best(scores)
             print("selected size: ", len(selected))

@@ -1,5 +1,6 @@
 import random as rd
 import matplotlib.pyplot as plt
+import json
 
 def k_means(victims, clusters = 4, max_iter = 100):
     x_min, x_max, y_min, y_max = __get_limits(victims) 
@@ -89,6 +90,44 @@ def __get_limits(victims):
 def save_clusters(clusters):
     for i, cluster in enumerate(clusters):
         file_name = f"data/cluster{i}_300v_90x90.json"
-        import json
         with open(file_name, 'w', encoding='utf-8') as f:
             json.dump(cluster[2], f, ensure_ascii=False, indent=4)
+
+def save_map(map):
+    str_map = {}
+    for key, val in map.map_data.items():
+        str_key = f"{key[0]},{key[1]}"
+        str_map[str_key] = val
+
+    file_name = f"data/map_300v_90x90.json"
+    with open(file_name, 'w', encoding='utf-8') as f:
+        json.dump(str_map, f, ensure_ascii=False, indent=4)
+
+
+def load_clusters():
+    clusters = []
+    for i in range(4):
+        file_name = f"data/cluster{i}_300v_90x90.json"
+        with open(file_name, 'r',encoding='utf-8') as file:
+            cluster = json.load(file)
+            for victim in cluster:
+                pos_tuple = (victim["position"][0], victim["position"][1])
+                victim["position"] = pos_tuple
+            clusters.append(cluster)
+
+    print(clusters)
+    return clusters
+
+def load_map():
+    file_name = f"data/map_300v_90x90.json"
+    str_map = {}
+    with open(file_name, 'r',encoding='utf-8') as file:
+        str_map = json.load(file)
+    
+    parsed_map = {}
+    for str_key, val in str_map.items():
+        coords = str_key.split(",")
+        key = (int(coords[0]), int(coords[1]))
+        parsed_map[key] = val 
+
+    return parsed_map

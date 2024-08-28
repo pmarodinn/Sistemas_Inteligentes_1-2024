@@ -12,9 +12,8 @@ from abc import ABC, abstractmethod
 import time
 from search import search
 from vs.abstract_agent import AbstAgent
-from vs.constants import VS
+from vs.constants import VS, DEBUG
 from map import Map
-
 
 class Stack:
     def __init__(self):
@@ -140,6 +139,10 @@ class Explorer(AbstAgent):
     def deliberate(self) -> bool:
         """The agent chooses the next action. The simulator calls this
         method at each cycle. Must be implemented in every agent"""
+        if DEBUG.RESCUER:
+            self.manager.add_victims([])
+            self.manager.add_map(Map())
+            return False
 
         comeback_plan, required_time = search(
             self.COST_LINE, self.COST_DIAG, self.map, (self.x, self.y), (0, 0)

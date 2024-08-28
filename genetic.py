@@ -48,9 +48,14 @@ def eval_seq_light(
         
         sq_distance = (cur_victim["position"][0] - next_victim["position"][0])**2 + (cur_victim["position"][1] - next_victim["position"][1])**2
         victim_severity = 100 -cur_victim["severity"]
-        a = 100/((i+1)*2)
-        b = 100*((i+1)*2)
-        score += (a*(100 - victim_severity) - sq_distance/b)
+        
+        # print("victim severity: ", victim_severity)
+        # print("square distance: ", sq_distance, "\n")
+
+        a = (len(sequence) - i)*100
+        b = 10*((i+1)*2)
+        score += (a*(victim_severity) - sq_distance/b)
+        #score += a*(100 - cur_victim["severity"])
 
     return score
 
@@ -69,14 +74,27 @@ def reproduce(sequence1, sequence2):
     return child
 
 
+def crossover(sequence1, sequence2):
+    cross_point = random.randint(0, len(sequence1))
+    
+    child = sequence1[: cross_point] + sequence2[cross_point:]
+    child = [i for n, i in enumerate(child) if i not in child[n + 1 :]]
+    control_set = set(child)
+    
+    for seq in sequence1:
+        if seq not in control_set:
+            child.append(seq)
+
+    return child
+
 def reproduce_pop(population):
     children = []
     for i in range(len(population) - 1):
         sequence1 = population[i]
         sequence2 = population[i + 1]
-        child = reproduce(sequence1, sequence2)
+        child = crossover(sequence1, sequence2)
         children.append(child)
-    children.append(reproduce(population[0], population[len(population) - 1]))
+    children.append(crossover(population[0], population[len(population) - 1]))
 
     return children
 
@@ -98,15 +116,16 @@ def select_the_best(
 ):
     scores = []
     for sequence in population:
-        score = evaluate_sequence(
-            sequence,
-            victims,
-            map,
-            cost_line,
-            cost_diag,
-            tlim,
-            cost_first_aid,
-        )
+        # score = evaluate_sequence(
+        #     sequence,
+        #     victims,
+        #     map,
+        #     cost_line,
+        #     cost_diag,
+        #     tlim,
+        #     cost_first_aid,
+        # )
+        score = eval_seq_light(sequence, victims)
         scores.append((score, sequence))
 
     return max(scores, key=lambda x: x[0])

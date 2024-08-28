@@ -1,0 +1,834 @@
+[
+    {
+        "seq": 173,
+        "position": [
+            -13,
+            60
+        ],
+        "data": {
+            "qPA": -7.40066,
+            "pulse": 33.81268,
+            "respiratory_freq": 6.40514
+        },
+        "severity": 20.492029190063477
+    },
+    {
+        "seq": 182,
+        "position": [
+            -8,
+            37
+        ],
+        "data": {
+            "qPA": -4.822766,
+            "pulse": 49.399979,
+            "respiratory_freq": 7.971425
+        },
+        "severity": 37.7060432434082
+    },
+    {
+        "seq": 206,
+        "position": [
+            0,
+            67
+        ],
+        "data": {
+            "qPA": -4.391408,
+            "pulse": 49.754248,
+            "respiratory_freq": 2.437103
+        },
+        "severity": 40.18216323852539
+    },
+    {
+        "seq": 209,
+        "position": [
+            1,
+            64
+        ],
+        "data": {
+            "qPA": 1.768087,
+            "pulse": 76.218429,
+            "respiratory_freq": 16.317317
+        },
+        "severity": 78.63333129882812
+    },
+    {
+        "seq": 205,
+        "position": [
+            0,
+            39
+        ],
+        "data": {
+            "qPA": 8.732073,
+            "pulse": 171.521658,
+            "respiratory_freq": 20.185948
+        },
+        "severity": 18.834653854370117
+    },
+    {
+        "seq": 204,
+        "position": [
+            0,
+            25
+        ],
+        "data": {
+            "qPA": 0.507414,
+            "pulse": 68.510877,
+            "respiratory_freq": 15.107339
+        },
+        "severity": 82.35073852539062
+    },
+    {
+        "seq": 196,
+        "position": [
+            -2,
+            47
+        ],
+        "data": {
+            "qPA": 8.718658,
+            "pulse": 162.942037,
+            "respiratory_freq": 20.382368
+        },
+        "severity": 17.556360244750977
+    },
+    {
+        "seq": 187,
+        "position": [
+            -6,
+            48
+        ],
+        "data": {
+            "qPA": 6.73566,
+            "pulse": 161.202828,
+            "respiratory_freq": 20.178804
+        },
+        "severity": 18.2089900970459
+    },
+    {
+        "seq": 185,
+        "position": [
+            -7,
+            61
+        ],
+        "data": {
+            "qPA": -0.0,
+            "pulse": 79.561814,
+            "respiratory_freq": 17.324385
+        },
+        "severity": 85.95661926269531
+    },
+    {
+        "seq": 298,
+        "position": [
+            24,
+            49
+        ],
+        "data": {
+            "qPA": -0.0,
+            "pulse": 46.769468,
+            "respiratory_freq": 9.240831
+        },
+        "severity": 51.47460174560547
+    },
+    {
+        "seq": 299,
+        "position": [
+            24,
+            64
+        ],
+        "data": {
+            "qPA": 6.189005,
+            "pulse": 156.091013,
+            "respiratory_freq": 20.456623
+        },
+        "severity": 17.8295841217041
+    },
+    {
+        "seq": 295,
+        "position": [
+            23,
+            60
+        ],
+        "data": {
+            "qPA": 0.0,
+            "pulse": 44.674335,
+            "respiratory_freq": 7.360955
+        },
+        "severity": 50.54194259643555
+    },
+    {
+        "seq": 294,
+        "position": [
+            23,
+            59
+        ],
+        "data": {
+            "qPA": 6.59829,
+            "pulse": 155.853411,
+            "respiratory_freq": 22.0
+        },
+        "severity": 15.102694511413574
+    },
+    {
+        "seq": 293,
+        "position": [
+            23,
+            57
+        ],
+        "data": {
+            "qPA": -5.037253,
+            "pulse": 38.960815,
+            "respiratory_freq": 8.952223
+        },
+        "severity": 30.444669723510742
+    },
+    {
+        "seq": 292,
+        "position": [
+            23,
+            25
+        ],
+        "data": {
+            "qPA": 4.238222,
+            "pulse": 175.232693,
+            "respiratory_freq": 22.0
+        },
+        "severity": 25.43943977355957
+    },
+    {
+        "seq": 291,
+        "position": [
+            22,
+            54
+        ],
+        "data": {
+            "qPA": 4.661786,
+            "pulse": 105.087725,
+            "respiratory_freq": 14.639037
+        },
+        "severity": 63.258663177490234
+    },
+    {
+        "seq": 286,
+        "position": [
+            21,
+            52
+        ],
+        "data": {
+            "qPA": 8.733333,
+            "pulse": 142.31586,
+            "respiratory_freq": 22.0
+        },
+        "severity": 13.756190299987793
+    },
+    {
+        "seq": 285,
+        "position": [
+            21,
+            45
+        ],
+        "data": {
+            "qPA": -8.63419,
+            "pulse": 63.088626,
+            "respiratory_freq": 6.685188
+        },
+        "severity": 36.93959045410156
+    },
+    {
+        "seq": 282,
+        "position": [
+            20,
+            57
+        ],
+        "data": {
+            "qPA": 8.733333,
+            "pulse": 158.301257,
+            "respiratory_freq": 19.153661
+        },
+        "severity": 26.7801570892334
+    },
+    {
+        "seq": 280,
+        "position": [
+            19,
+            47
+        ],
+        "data": {
+            "qPA": -5.20839,
+            "pulse": 40.069902,
+            "respiratory_freq": 4.150232
+        },
+        "severity": 31.52760887145996
+    },
+    {
+        "seq": 279,
+        "position": [
+            19,
+            36
+        ],
+        "data": {
+            "qPA": 8.724641,
+            "pulse": 163.656172,
+            "respiratory_freq": 19.468735
+        },
+        "severity": 24.308225631713867
+    },
+    {
+        "seq": 271,
+        "position": [
+            18,
+            30
+        ],
+        "data": {
+            "qPA": -8.592707,
+            "pulse": 50.894334,
+            "respiratory_freq": 7.189794
+        },
+        "severity": 30.67613410949707
+    },
+    {
+        "seq": 272,
+        "position": [
+            18,
+            41
+        ],
+        "data": {
+            "qPA": -0.0,
+            "pulse": 81.102188,
+            "respiratory_freq": 15.590672
+        },
+        "severity": 85.7995376586914
+    },
+    {
+        "seq": 273,
+        "position": [
+            18,
+            47
+        ],
+        "data": {
+            "qPA": 8.554428,
+            "pulse": 161.806641,
+            "respiratory_freq": 22.0
+        },
+        "severity": 12.205111503601074
+    },
+    {
+        "seq": 274,
+        "position": [
+            18,
+            52
+        ],
+        "data": {
+            "qPA": -4.567063,
+            "pulse": 62.298414,
+            "respiratory_freq": 9.195089
+        },
+        "severity": 44.896583557128906
+    },
+    {
+        "seq": 275,
+        "position": [
+            18,
+            64
+        ],
+        "data": {
+            "qPA": -8.666216,
+            "pulse": 47.748368,
+            "respiratory_freq": 5.999903
+        },
+        "severity": 29.265438079833984
+    },
+    {
+        "seq": 267,
+        "position": [
+            17,
+            66
+        ],
+        "data": {
+            "qPA": -0.0,
+            "pulse": 81.663475,
+            "respiratory_freq": 16.310508
+        },
+        "severity": 84.90262603759766
+    },
+    {
+        "seq": 265,
+        "position": [
+            16,
+            45
+        ],
+        "data": {
+            "qPA": 0.0,
+            "pulse": 24.780411,
+            "respiratory_freq": 6.773977
+        },
+        "severity": 41.41407775878906
+    },
+    {
+        "seq": 261,
+        "position": [
+            15,
+            39
+        ],
+        "data": {
+            "qPA": -8.653608,
+            "pulse": 39.067497,
+            "respiratory_freq": 6.919771
+        },
+        "severity": 21.17995262145996
+    },
+    {
+        "seq": 256,
+        "position": [
+            13,
+            58
+        ],
+        "data": {
+            "qPA": 8.696049,
+            "pulse": 168.412457,
+            "respiratory_freq": 18.158453
+        },
+        "severity": 32.361690521240234
+    },
+    {
+        "seq": 255,
+        "position": [
+            13,
+            39
+        ],
+        "data": {
+            "qPA": -8.710623,
+            "pulse": 46.991894,
+            "respiratory_freq": 10.85298
+        },
+        "severity": 33.83076095581055
+    },
+    {
+        "seq": 249,
+        "position": [
+            11,
+            46
+        ],
+        "data": {
+            "qPA": 8.588783,
+            "pulse": 155.494014,
+            "respiratory_freq": 15.203091
+        },
+        "severity": 40.54655838012695
+    },
+    {
+        "seq": 239,
+        "position": [
+            8,
+            63
+        ],
+        "data": {
+            "qPA": -8.729488,
+            "pulse": 49.12796,
+            "respiratory_freq": 4.288641
+        },
+        "severity": 30.155406951904297
+    },
+    {
+        "seq": 245,
+        "position": [
+            9,
+            62
+        ],
+        "data": {
+            "qPA": -1.909632,
+            "pulse": 34.201337,
+            "respiratory_freq": 14.010172
+        },
+        "severity": 59.13945388793945
+    },
+    {
+        "seq": 244,
+        "position": [
+            9,
+            58
+        ],
+        "data": {
+            "qPA": 5.761563,
+            "pulse": 161.021077,
+            "respiratory_freq": 19.875182
+        },
+        "severity": 23.25434684753418
+    },
+    {
+        "seq": 243,
+        "position": [
+            9,
+            54
+        ],
+        "data": {
+            "qPA": -0.0,
+            "pulse": 87.870667,
+            "respiratory_freq": 15.839113
+        },
+        "severity": 86.1788330078125
+    },
+    {
+        "seq": 230,
+        "position": [
+            6,
+            62
+        ],
+        "data": {
+            "qPA": 3.297576,
+            "pulse": 162.146864,
+            "respiratory_freq": 22.0
+        },
+        "severity": 30.69997215270996
+    },
+    {
+        "seq": 233,
+        "position": [
+            7,
+            55
+        ],
+        "data": {
+            "qPA": -0.425998,
+            "pulse": 43.020414,
+            "respiratory_freq": 5.543621
+        },
+        "severity": 48.43147659301758
+    },
+    {
+        "seq": 232,
+        "position": [
+            7,
+            46
+        ],
+        "data": {
+            "qPA": 8.733333,
+            "pulse": 176.74216,
+            "respiratory_freq": 18.875011
+        },
+        "severity": 28.901290893554688
+    },
+    {
+        "seq": 229,
+        "position": [
+            6,
+            59
+        ],
+        "data": {
+            "qPA": 8.733333,
+            "pulse": 162.877215,
+            "respiratory_freq": 21.379534
+        },
+        "severity": 13.845396995544434
+    },
+    {
+        "seq": 224,
+        "position": [
+            5,
+            60
+        ],
+        "data": {
+            "qPA": 0.0,
+            "pulse": 56.287365,
+            "respiratory_freq": 8.304987
+        },
+        "severity": 56.986045837402344
+    },
+    {
+        "seq": 223,
+        "position": [
+            5,
+            45
+        ],
+        "data": {
+            "qPA": 8.716789,
+            "pulse": 180.107718,
+            "respiratory_freq": 22.0
+        },
+        "severity": 11.67151165008545
+    },
+    {
+        "seq": 217,
+        "position": [
+            3,
+            45
+        ],
+        "data": {
+            "qPA": -4.386572,
+            "pulse": 53.185514,
+            "respiratory_freq": 9.624003
+        },
+        "severity": 40.60041809082031
+    },
+    {
+        "seq": 212,
+        "position": [
+            2,
+            44
+        ],
+        "data": {
+            "qPA": 8.733333,
+            "pulse": 151.695315,
+            "respiratory_freq": 15.770625
+        },
+        "severity": 40.80402374267578
+    },
+    {
+        "seq": 211,
+        "position": [
+            2,
+            37
+        ],
+        "data": {
+            "qPA": 5.073943,
+            "pulse": 161.249882,
+            "respiratory_freq": 17.153478
+        },
+        "severity": 41.90849685668945
+    },
+    {
+        "seq": 210,
+        "position": [
+            2,
+            23
+        ],
+        "data": {
+            "qPA": 8.481973,
+            "pulse": 158.831157,
+            "respiratory_freq": 21.562607
+        },
+        "severity": 12.809439659118652
+    },
+    {
+        "seq": 215,
+        "position": [
+            3,
+            31
+        ],
+        "data": {
+            "qPA": 3.163995,
+            "pulse": 82.882281,
+            "respiratory_freq": 15.443222
+        },
+        "severity": 76.42448425292969
+    },
+    {
+        "seq": 216,
+        "position": [
+            3,
+            37
+        ],
+        "data": {
+            "qPA": 8.570826,
+            "pulse": 156.798038,
+            "respiratory_freq": 22.0
+        },
+        "severity": 12.591425895690918
+    },
+    {
+        "seq": 221,
+        "position": [
+            4,
+            31
+        ],
+        "data": {
+            "qPA": -0.553774,
+            "pulse": 44.451139,
+            "respiratory_freq": 11.431037
+        },
+        "severity": 58.023441314697266
+    },
+    {
+        "seq": 220,
+        "position": [
+            4,
+            25
+        ],
+        "data": {
+            "qPA": 2.155324,
+            "pulse": 90.634596,
+            "respiratory_freq": 16.779567
+        },
+        "severity": 77.41414642333984
+    },
+    {
+        "seq": 222,
+        "position": [
+            5,
+            38
+        ],
+        "data": {
+            "qPA": 8.733333,
+            "pulse": 153.064046,
+            "respiratory_freq": 20.65927
+        },
+        "severity": 16.73954963684082
+    },
+    {
+        "seq": 228,
+        "position": [
+            6,
+            38
+        ],
+        "data": {
+            "qPA": 8.134328,
+            "pulse": 186.173349,
+            "respiratory_freq": 18.595705
+        },
+        "severity": 29.953359603881836
+    },
+    {
+        "seq": 227,
+        "position": [
+            6,
+            32
+        ],
+        "data": {
+            "qPA": 0.0,
+            "pulse": 38.914426,
+            "respiratory_freq": 10.65191
+        },
+        "severity": 53.9197883605957
+    },
+    {
+        "seq": 231,
+        "position": [
+            7,
+            27
+        ],
+        "data": {
+            "qPA": -5.196806,
+            "pulse": 41.731858,
+            "respiratory_freq": 7.579035
+        },
+        "severity": 31.759946823120117
+    },
+    {
+        "seq": 238,
+        "position": [
+            8,
+            37
+        ],
+        "data": {
+            "qPA": -5.154789,
+            "pulse": 40.749415,
+            "respiratory_freq": 4.870675
+        },
+        "severity": 32.02867889404297
+    },
+    {
+        "seq": 242,
+        "position": [
+            9,
+            25
+        ],
+        "data": {
+            "qPA": 8.623834,
+            "pulse": 137.984781,
+            "respiratory_freq": 18.268749
+        },
+        "severity": 32.03893280029297
+    },
+    {
+        "seq": 246,
+        "position": [
+            10,
+            30
+        ],
+        "data": {
+            "qPA": 8.718312,
+            "pulse": 140.352476,
+            "respiratory_freq": 19.441566
+        },
+        "severity": 24.87441062927246
+    },
+    {
+        "seq": 251,
+        "position": [
+            12,
+            29
+        ],
+        "data": {
+            "qPA": 6.094327,
+            "pulse": 152.397476,
+            "respiratory_freq": 18.650286
+        },
+        "severity": 31.23305320739746
+    },
+    {
+        "seq": 254,
+        "position": [
+            13,
+            28
+        ],
+        "data": {
+            "qPA": 8.722468,
+            "pulse": 160.032261,
+            "respiratory_freq": 16.304869
+        },
+        "severity": 40.10359191894531
+    },
+    {
+        "seq": 266,
+        "position": [
+            17,
+            28
+        ],
+        "data": {
+            "qPA": 0.0,
+            "pulse": 47.696486,
+            "respiratory_freq": 7.760321
+        },
+        "severity": 52.19826889038086
+    },
+    {
+        "seq": 270,
+        "position": [
+            18,
+            27
+        ],
+        "data": {
+            "qPA": -4.55611,
+            "pulse": 56.741168,
+            "respiratory_freq": 4.577957
+        },
+        "severity": 43.1159553527832
+    },
+    {
+        "seq": 278,
+        "position": [
+            19,
+            25
+        ],
+        "data": {
+            "qPA": -8.421849,
+            "pulse": 42.616985,
+            "respiratory_freq": 7.95752
+        },
+        "severity": 24.356359481811523
+    },
+    {
+        "seq": 290,
+        "position": [
+            22,
+            23
+        ],
+        "data": {
+            "qPA": 8.733333,
+            "pulse": 150.617528,
+            "respiratory_freq": 14.578461
+        },
+        "severity": 40.823116302490234
+    },
+    {
+        "seq": 289,
+        "position": [
+            22,
+            22
+        ],
+        "data": {
+            "qPA": -8.722325,
+            "pulse": 35.178685,
+            "respiratory_freq": 10.950636
+        },
+        "severity": 26.287511825561523
+    }
+]
