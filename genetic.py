@@ -35,6 +35,24 @@ def evaluate_sequence(
         current_pos = victim["position"]
     return score
 
+def eval_seq_light(
+    sequence, victims
+):
+    # score = sum(a*sev) - sum(b*dist)
+    score = 0.0
+    for i in range(len(sequence) -1):
+        vic_index = next((index for (index, v) in enumerate(victims) if v["seq"] == sequence[i]), None)
+        next_index = next((index for (index, v) in enumerate(victims) if v["seq"] == sequence[i+1]), None)
+        cur_victim = victims[vic_index]
+        next_victim = victims[next_index]
+        
+        sq_distance = (cur_victim["position"][0] - next_victim["position"][0])**2 + (cur_victim["position"][1] - next_victim["position"][1])**2
+        victim_severity = 100 -cur_victim["severity"]
+        a = 100/((i+1)*2)
+        b = 100*((i+1)*2)
+        score += (a*(100 - victim_severity) - sq_distance/b)
+
+    return score
 
 def select_best(scores_dict):
     sorted_sequences = sorted(scores_dict, key=lambda x: x[0], reverse=True)
