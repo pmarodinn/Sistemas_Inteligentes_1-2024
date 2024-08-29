@@ -48,4 +48,4 @@ class VS:
 
 class DEBUG:
     
-    RESCUER = True
+    RESCUER = False
