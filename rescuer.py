@@ -10,6 +10,7 @@ import os
 import random
 from textwrap import indent
 from time import sleep
+import matplotlib.pyplot as plt
 
 from pandas.core.reshape.merge import uuid
 from map import Map
@@ -66,7 +67,7 @@ class Rescuer(AbstAgent):
         self.victims = victims
         import json
 
-        print(json.dumps(self.victims, indent=4))
+        #print(json.dumps(self.victims, indent=4))
         self.__planner()
         i = 1
         self.plan_x = 0
@@ -142,37 +143,32 @@ class Rescuer(AbstAgent):
                 return
 
     def __a_star(self):
-        print(self.victims)
         sorted_victims = sorted(self.victims, key=lambda x: x["severity"])
         if len(sorted_victims) == 0:
             return
 
-        population_size = 20
+        population_size = 200
         population = initialize_random(self.victims, population_size)
-        print("population_size: ", len(population))
-        n_generations = 400
+        n_generations = 80
         scores = []
+        mean_gen_scores = []
         for i in range(n_generations):
             scores.clear()
-            print("generation ", i)
+            gen_score = 0
             for sequence in population:
-                # score = evaluate_sequence(
-                #     sequence,
-                #     self.victims,
-                #     self.map,
-                #     self.COST_LINE,
-                #     self.COST_DIAG,
-                #     self.TLIM,
-                #     self.COST_FIRST_AID,
-                # )
                 score = eval_seq_light(sequence, self.victims)
+                gen_score += score 
                 scores.append((score, sequence))
+
+            gen_score = gen_score/population_size 
+            mean_gen_scores.append(gen_score)
             selected = select_best(scores)
-            print("selected size: ", len(selected))
             children = reproduce_pop(selected)
-            print("children size: ", len(children))
             population = selected + children
-            print("population_size: ", len(population))
+        
+#        plt.plot(mean_gen_scores)
+#        plt.show()
+
         best = select_the_best(
             population,
             self.victims,
@@ -183,7 +179,6 @@ class Rescuer(AbstAgent):
             self.COST_FIRST_AID,
         )
         best = best[1]
-        print("best sequence: ", best)
         best = seq_list2dict(best, self.victims)
         current_pos = (0, 0)
         for victim in best:
@@ -212,7 +207,7 @@ class Rescuer(AbstAgent):
         )
         self.plan = self.plan + comeback_plan
 
-        print(self.plan)
+        #print(self.plan)
         return
 
     def __planner(self):

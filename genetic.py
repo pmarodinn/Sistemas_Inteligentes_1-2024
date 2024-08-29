@@ -1,6 +1,8 @@
 import random
+import numpy as np
 
 from pandas.core.reshape.merge import uuid
+import matplotlib.pyplot as plt
 
 from search import search
 
@@ -38,7 +40,7 @@ def evaluate_sequence(
 def eval_seq_light(
     sequence, victims
 ):
-    # score = sum(a*sev) - sum(b*dist)
+
     score = 0.0
     for i in range(len(sequence) -1):
         vic_index = next((index for (index, v) in enumerate(victims) if v["seq"] == sequence[i]), None)
@@ -48,14 +50,11 @@ def eval_seq_light(
         
         sq_distance = (cur_victim["position"][0] - next_victim["position"][0])**2 + (cur_victim["position"][1] - next_victim["position"][1])**2
         victim_severity = 100 -cur_victim["severity"]
-        
-        # print("victim severity: ", victim_severity)
-        # print("square distance: ", sq_distance, "\n")
 
-        a = (len(sequence) - i)*100
-        b = 10*((i+1)*2)
+
+        a = (len(sequence) - i)
+        b = 100*((i+1)*2)
         score += (a*(victim_severity) - sq_distance/b)
-        #score += a*(100 - cur_victim["severity"])
 
     return score
 
@@ -116,15 +115,6 @@ def select_the_best(
 ):
     scores = []
     for sequence in population:
-        # score = evaluate_sequence(
-        #     sequence,
-        #     victims,
-        #     map,
-        #     cost_line,
-        #     cost_diag,
-        #     tlim,
-        #     cost_first_aid,
-        # )
         score = eval_seq_light(sequence, victims)
         scores.append((score, sequence))
 
