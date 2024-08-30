@@ -3,6 +3,7 @@ import os
 
 from manager import Manager
 from vs.environment import Env
+from vs.constants import DATA
 from explorer import Explorer
 from rescuer import Rescuer
 
@@ -52,6 +53,6 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         data_folder_name = sys.argv[1]
     else:
-        data_folder_name = os.path.join("datasets", "data_408v_94x94")
+        data_folder_name = os.path.join("datasets", f"data_{DATA.SCENARIO}")
 
     main(data_folder_name)
