@@ -1,4 +1,4 @@
-from cluster import k_means, save_clusters, save_map, load_map, load_clusters
+from cluster import k_means, save_clusters, save_clusters_txt ,save_map, load_map, load_clusters
 from map import Map
 import neural_network
 
@@ -46,6 +46,7 @@ class Manager:
         for cluster, rescuer in zip(clusters, self.rescuers):
             rescuer.go_save_victims(self.map, cluster[2])
         save_clusters(clusters)
+        save_clusters_txt(clusters)
 
     def predict_victims_severity(self):
         neural_network.predict(self.victims)

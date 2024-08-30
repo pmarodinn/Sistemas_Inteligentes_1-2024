@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 # ============================== FUNCTIONS =========================================== #
 
 def calculate_mae(leafs, train_x, val_x, train_y, val_y):
-    model = DecisionTreeRegressor(max_leaf_nodes = leafs, random_state = 1)
+    model = DecisionTreeRegressor(max_leaf_nodes = leafs)
     model.fit(train_x, train_y)
 
     val_predict = model.predict(val_x)
@@ -21,9 +21,13 @@ data_path = "./datasets/data_4000v/env_vital_signals.csv"
 
 victim_data = pd.read_csv(data_path, header=None)
 
-target = victim_data[len(victim_data - 1)]
+columns_len = len(victim_data.columns)     
 
-features_data = victim_data[:len(victim_data)-1]
+target = victim_data[columns_len - 2]
+
+features_data = victim_data[[1,2,3,4,5]]
+print(target)
+print(features_data)
 
 train_feat, val_feat, train_target, val_target = train_test_split(features_data, target, random_state = 1)
 

@@ -30,6 +30,8 @@ from genetic import (
 from abc import ABC, abstractmethod
 from cluster import k_means, save_clusters
 
+GENERATIONS = 80
+N = 300
 
 ## Classe que define o Agente Rescuer com um plano fixo
 class Rescuer(AbstAgent):
@@ -147,9 +149,9 @@ class Rescuer(AbstAgent):
         if len(sorted_victims) == 0:
             return
 
-        population_size = 200
+        population_size = N
         population = initialize_random(self.victims, population_size)
-        n_generations = 80
+        n_generations = GENERATIONS
         scores = []
         mean_gen_scores = []
         for i in range(n_generations):
@@ -166,9 +168,13 @@ class Rescuer(AbstAgent):
             children = reproduce_pop(selected)
             population = selected + children
         
-#        plt.plot(mean_gen_scores)
-#        plt.show()
 
+        plt.plot(mean_gen_scores)
+        plt.grid()
+        plt.xlabel("Geração")
+        plt.ylabel("Score médio")
+        plt.show()
+        
         best = select_the_best(
             population,
             self.victims,

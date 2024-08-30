@@ -62,7 +62,7 @@ test_dataset = dataset.drop(train_dataset.index)
 sns.pairplot(
     train_dataset[["severity", "qPA", "pulse", "respiratory_freq"]], diag_kind="kde"
 )
-
+plt.show()
 train_features = train_dataset.copy()
 test_features = test_dataset.copy()
 test_features.pop("seq")
@@ -86,7 +86,7 @@ history = dnn_model.fit(
     train_features, train_labels, validation_split=0.2, verbose=0, epochs=epochs
 )
 dnn_model.summary()
-# plot_loss(history)
+plot_loss(history)
 plt.show()
 
 test_results = {}
@@ -97,8 +97,8 @@ test_predictions = dnn_model.predict(test_features).flatten()
 
 a = plt.axes(aspect="equal")
 plt.scatter(test_labels, test_predictions)
-plt.xlabel("True Values [MPG]")
-plt.ylabel("Predictions [MPG]")
+plt.xlabel("True Values")
+plt.ylabel("Predictions")
 lims = [0, 50]
 plt.xlim(lims)
 plt.ylim(lims)

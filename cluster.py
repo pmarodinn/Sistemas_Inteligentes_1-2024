@@ -93,6 +93,16 @@ def save_clusters(clusters):
         with open(file_name, 'w', encoding='utf-8') as f:
             json.dump(cluster[2], f, ensure_ascii=False, indent=4)
 
+
+def save_clusters_txt(clusters):
+    for i, cluster in enumerate(clusters):
+        file_name = f"data/cluster{i}_408v_94x94.txt"
+        cluster_string = ""
+        for victim in cluster[2]:
+            cluster_string += f"{victim["seq"]},{victim["position"][0]},{victim["position"][1]},{victim["severity"]},1\n"
+        with open(file_name, 'w', encoding='utf-8') as file:
+            file.write(cluster_string)
+
 def save_map(map):
     str_map = {}
     for key, val in map.map_data.items():
