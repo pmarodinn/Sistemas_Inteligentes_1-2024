@@ -32,8 +32,15 @@ def select_best(scores_dict):
     sorted_sequences = list(map(lambda x: x[1], sorted_sequences))
     return sorted_sequences[: len(sorted_sequences) // 2]
 
-
-
+def mutate(sequence, prob = 0.05):
+    threshold = int(0.05 * 1000)
+    for victim in sequence:
+        k = random.randint(0, 1000)
+        if k < threshold:
+            i = random.randint(0, len(sequence))
+            aux = sequence[i]
+            sequence[i] = victim 
+            victim = aux
 
 def crossover(sequence1, sequence2):
     cross_point = random.randint(0, len(sequence1))
