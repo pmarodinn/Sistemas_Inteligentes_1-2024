@@ -42,6 +42,10 @@ def mutate(sequence, prob = 0.05):
             sequence[i] = victim 
             victim = aux
 
+def mutate_pop(population):
+    for seq in population:
+        mutate(seq)
+
 def crossover(sequence1, sequence2):
     cross_point = random.randint(0, len(sequence1))
     

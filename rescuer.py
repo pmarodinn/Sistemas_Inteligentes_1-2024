@@ -19,10 +19,10 @@ from vs.abstract_agent import AbstAgent
 from vs.physical_agent import PhysAgent
 from vs.constants import VS
 from genetic import (
-    evaluate_sequence,
     eval_seq_light,
     initialize_random,
     reproduce_pop,
+    mutate_pop,
     select_best,
     select_the_best,
     seq_list2dict,
@@ -167,6 +167,7 @@ class Rescuer(AbstAgent):
             selected = select_best(scores)
             children = reproduce_pop(selected)
             population = selected + children
+            mutate_pop(population)
         
 
         plt.plot(mean_gen_scores)
