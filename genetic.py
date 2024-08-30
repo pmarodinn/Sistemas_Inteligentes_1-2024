@@ -6,37 +6,6 @@ import matplotlib.pyplot as plt
 
 from search import search
 
-
-def evaluate_sequence(
-    sequence, victims, map, cost_line, cost_diag, tlim, cost_first_aid
-):
-
-    plan = []
-    plan_walk_time = 0.0
-    plan_rtime = tlim
-    current_pos = (0, 0)
-    score = 0.0
-    for seq in sequence:
-        victim_index = next(
-            (index for (index, v) in enumerate(victims) if v["seq"] == seq), None
-        )
-        victim = victims[victim_index]
-
-        next_plan, time_required = search(
-            cost_line, cost_diag, map, current_pos, victim["position"]
-        )
-        _, time_to_go_back = search(
-            cost_line, cost_diag, map, victim["position"], (0, 0)
-        )
-        time_required += cost_first_aid
-        if plan_walk_time + time_required + time_to_go_back > plan_rtime - 40:
-            continue
-        score += 100 - victim["severity"]
-        plan_walk_time += time_required
-        plan = plan + next_plan
-        current_pos = victim["position"]
-    return score
-
 def eval_seq_light(
     sequence, victims
 ):
