@@ -83,9 +83,7 @@ def initialize_random(victims, n_sequences):
     return sequences
 
 
-def select_the_best(
-    population, victims, map, cost_line, cost_diag, tlim, cost_first_aid
-):
+def apply_natural_selection(population, victims):
     scores = []
     for sequence in population:
         score = eval_seq_light(sequence, victims)

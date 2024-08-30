@@ -19,12 +19,13 @@ from vs.abstract_agent import AbstAgent
 from vs.physical_agent import PhysAgent
 from vs.constants import VS
 from genetic import (
+    apply_natural_selection,
     eval_seq_light,
     initialize_random,
     reproduce_pop,
     mutate_pop,
     select_best,
-    select_the_best,
+    apply_natural_selection,
     seq_list2dict,
 )
 from abc import ABC, abstractmethod
@@ -175,15 +176,7 @@ class Rescuer(AbstAgent):
             plt.ylabel("Score médio")
             plt.show()
         
-        best = select_the_best(
-            population,
-            self.victims,
-            self.map,
-            self.COST_LINE,
-            self.COST_DIAG,
-            self.TLIM,
-            self.COST_FIRST_AID,
-        )
+        best = apply_natural_selection(population,self.victims)
         best = best[1]
         best = seq_list2dict(best, self.victims)
         current_pos = (0, 0)
