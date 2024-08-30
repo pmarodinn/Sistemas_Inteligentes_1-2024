@@ -3,5 +3,8 @@ __pycache__/
 envios/
 *.json
 *.pyc
-*.txt
-!requirements.txt
+blind_test/*.txt
+
+data/sequences/*.txt 
+data/*.txt
+clusters/*.txt 
