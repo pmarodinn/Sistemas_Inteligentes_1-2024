@@ -33,13 +33,6 @@ def select_best(scores_dict):
     return sorted_sequences[: len(sorted_sequences) // 2]
 
 
-def reproduce(sequence1, sequence2):
-    child = sequence1[: len(sequence1) // 2] + sequence2[: len(sequence2) // 2]
-    child = [i for n, i in enumerate(child) if i not in child[n + 1 :]]
-    for seq in sequence1:
-        if seq not in child:
-            child.append(seq)
-    return child
 
 
 def crossover(sequence1, sequence2):
