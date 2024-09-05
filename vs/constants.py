@@ -48,7 +48,7 @@ class VS:
 
 class DEBUG:
     
-    RESCUER = False
+    RESCUER = True 
 
 class DATA:
     SCENARIO = "300v_90x90"

@@ -17,7 +17,7 @@ from map import Map
 from search import search
 from vs.abstract_agent import AbstAgent
 from vs.physical_agent import PhysAgent
-from vs.constants import VS
+from vs.constants import VS, DATA
 from genetic import (
     apply_natural_selection,
     eval_seq_light,
@@ -33,10 +33,12 @@ from cluster import k_means, save_clusters
 
 GENERATIONS = 80
 POP_SIZE = 300
-PLOT = False
+PLOT_GEN_SCORE = False 
+SAVE_RESC_SEQ = True
 
 ## Classe que define o Agente Rescuer com um plano fixo
 class Rescuer(AbstAgent):
+    seqs = 0
     def __init__(self, env, config_file):
         """
         @param env: a reference to an instance of the environment class
@@ -56,6 +58,7 @@ class Rescuer(AbstAgent):
         self.x = 0  # the current x position of the rescuer when executing the plan
         self.y = 0  # the current y position of the rescuer when executing the plan
         self.map_qtd = 0  # the initial number of maps a rescuer has is 0
+        
 
         # Starts in IDLE state.
         # It changes to ACTIVE when the map arrives
@@ -169,7 +172,7 @@ class Rescuer(AbstAgent):
             population = selected + children
             mutate_pop(population)
         
-        if PLOT:
+        if PLOT_GEN_SCORE:
             plt.plot(mean_gen_scores)
             plt.grid()
             plt.xlabel("Geração")
@@ -179,6 +182,9 @@ class Rescuer(AbstAgent):
         best = apply_natural_selection(population,self.victims)
         best = best[1]
         best = seq_list2dict(best, self.victims)
+        if SAVE_RESC_SEQ:
+            self.save_resc_seq(best)
+
         current_pos = (0, 0)
         for victim in best:
             next_plan, time_required = search(
@@ -268,3 +274,12 @@ class Rescuer(AbstAgent):
         # input(f"{self.NAME} remaining time: {self.get_rtime()} Tecle enter")
 
         return True
+
+    def save_resc_seq(self, sequence):
+        file_path = f"./data/sequence/seq{Rescuer.seqs}_{DATA.SCENARIO}.txt"
+        Rescuer.seqs += 1
+        with open(file_path, 'w', encoding='utf-8') as handler:
+            for victim in sequence:
+                handler.write(f"{victim["seq"]},{victim["position"][0]},{victim["position"][1]},{victim["severity"]}\n")
+
+
