@@ -49,4 +49,4 @@ def teste_cego():
     predict(victims)
     generate_pred_txt(victims)
             
-teste_cego()
+#teste_cego()

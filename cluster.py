@@ -4,6 +4,9 @@ import json
 
 from vs.constants import DATA
 
+
+PLOT_CLUSTERS = True
+
 def k_means(victims, clusters = 4, max_iter = 100):
     x_min, x_max, y_min, y_max = __get_limits(victims) 
     #initiate centroids
@@ -61,7 +64,9 @@ def k_means(victims, clusters = 4, max_iter = 100):
             
 
         it += 1
-
+    print(centroids)
+    if PLOT_CLUSTERS:  
+        plot_clusters(centroids)
     return centroids
 
 def __get_limits(victims):
@@ -88,6 +93,24 @@ def __get_limits(victims):
 
     return x_min, x_max, y_min, y_max
 
+
+def plot_clusters(centroids):
+    vic_x = []
+    vic_y = []
+    cent_x = []
+    cent_y = []
+    for c in centroids:
+        cent_x.append(c[0])
+        cent_y.append(c[1])
+        for victim in c[2]:
+            vx, vy = victim["position"]
+            vic_x.append(vx)
+            vic_y.append(vy)
+
+    plt.grid()
+    plt.plot(vic_x, vic_y, color='blue', marker='o', ls='')
+    plt.plot(cent_x, cent_y, color='red', marker='o', ls='')
+    plt.show()
 
 def save_clusters(clusters):
     for i, cluster in enumerate(clusters):

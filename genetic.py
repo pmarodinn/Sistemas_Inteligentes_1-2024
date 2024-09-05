@@ -34,13 +34,13 @@ def select_best(scores_dict):
 
 def mutate(sequence, prob = 0.05):
     threshold = int(0.05 * 1000)
-    for victim in sequence:
+    for i in range(len(sequence)):
         k = random.randint(0, 1000)
         if k < threshold:
-            i = random.randint(0, len(sequence))
-            aux = sequence[i]
-            sequence[i] = victim 
-            victim = aux
+            j = random.randint(0, len(sequence)-1)
+            aux = sequence[j]
+            sequence[j] = sequence[i] 
+            sequence[i] = aux
 
 def mutate_pop(population):
     for seq in population:

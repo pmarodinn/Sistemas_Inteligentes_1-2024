@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt 
+from vs.constants import DATA 
 
 def read_cluster(filepath):
     cluster = []
@@ -28,7 +29,7 @@ def calc_sse(cluster):
     return sum
 
 for i in range(4):
-    filepath = f"./data/cluster{i}_225v_100x80.txt"
+    filepath = f"./data/cluster{i}_{DATA.SCENARIO}.txt"
     cluster = read_cluster(filepath)
 
     print(f"cluster{i} - x: {cluster[0]}, y: {cluster[1]}")
