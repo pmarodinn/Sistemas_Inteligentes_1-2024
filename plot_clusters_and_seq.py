@@ -31,7 +31,7 @@ import math
 import csv
 
 # Coorinantes of cluster and sequence files are absolute or relative to the base position?
-ABS_COORDINATES = True
+ABS_COORDINATES = False
 
 # Input files and folders
 data_folder = "./datasets/data_300v_90x90"
