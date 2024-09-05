@@ -5,8 +5,8 @@ envios/
 *.pyc
 blind_test/*.txt
 
-data/sequences/*.txt 
-data/*.txt
-clusters/*.txt 
+data/sequence/*
+data/cluster/txt/* 
+data/cluster/json/*
 
 .vscode/
