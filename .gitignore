@@ -8,3 +8,5 @@ blind_test/*.txt
 data/sequences/*.txt 
 data/*.txt
 clusters/*.txt 
+
+.vscode/
