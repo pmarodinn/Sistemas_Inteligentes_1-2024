@@ -40,7 +40,7 @@ obst_file = "env_obst.txt"
 victims_file = "env_victims.txt"
 vital_signals_file = "env_vital_signals.txt"
 cluster_folder = "./clusters"
-sequence_folder = "./data/sequences" # Directory containing cluster files 
+sequence_folder = "./data/sequence" # Directory containing cluster files 
 
 # Define colors
 WHITE = (255, 255, 255)
