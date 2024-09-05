@@ -5,7 +5,7 @@ import json
 from vs.constants import DATA
 
 
-PLOT_CLUSTERS = True
+PLOT_CLUSTERS = False
 
 def k_means(victims, clusters = 4, max_iter = 100):
     x_min, x_max, y_min, y_max = __get_limits(victims) 
@@ -95,21 +95,30 @@ def __get_limits(victims):
 
 
 def plot_clusters(centroids):
+    cluster_colors=['red', 'green', 'blue', 'purple']
+    centroids_color = 'black'
+
     vic_x = []
     vic_y = []
     cent_x = []
     cent_y = []
-    for c in centroids:
+
+    for i, c in enumerate(centroids):
         cent_x.append(c[0])
         cent_y.append(c[1])
+
+        vic_x.append([])
+        vic_y.append([])
+
         for victim in c[2]:
             vx, vy = victim["position"]
-            vic_x.append(vx)
-            vic_y.append(vy)
+            vic_x[i].append(vx)
+            vic_y[i].append(vy)
 
     plt.grid()
-    plt.plot(vic_x, vic_y, color='blue', marker='o', ls='')
-    plt.plot(cent_x, cent_y, color='red', marker='o', ls='')
+    for i, vic_pos in enumerate(zip(vic_x, vic_y)):
+        plt.plot(vic_pos[0], vic_pos[1], color=cluster_colors[i%len(cluster_colors)], marker='o', ls='')
+    plt.plot(cent_x, cent_y, color=centroids_color, marker='o', ls='')
     plt.show()
 
 def save_clusters(clusters):
